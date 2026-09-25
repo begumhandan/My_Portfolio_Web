@@ -123,13 +123,6 @@ export function Navbar() {
 
           <div className="flex items-center gap-2 sm:gap-3">
             <LanguageToggle layoutId="lang-desktop" className="hidden sm:inline-flex" />
-            {/* CTA visible on tablet and desktop */}
-            <a
-              href="#contact"
-              className={buttonStyles("primary", "hidden h-9 px-4 sm:inline-flex")}
-            >
-              {t.nav.contact}
-            </a>
             <button
               ref={menuButtonRef}
               type="button"
@@ -208,13 +201,6 @@ export function Navbar() {
 
               <div className="mt-auto flex flex-col gap-4">
                 <LanguageToggle layoutId="lang-mobile" className="self-start" />
-                <a
-                  href="#contact"
-                  onClick={() => setMenuOpen(false)}
-                  className={buttonStyles("primary", "w-full")}
-                >
-                  {t.nav.contact}
-                </a>
               </div>
             </motion.div>
           </>
