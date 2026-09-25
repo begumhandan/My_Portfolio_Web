@@ -1,0 +1,138 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+@theme {
+  --color-ink: #09090b;
+  --color-accent-blue: #3b82f6;
+  --color-accent-green: #10b981;
+
+  --animate-pulse-ring: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-blob-a: blob-a 22s ease-in-out infinite;
+  --animate-blob-b: blob-b 26s ease-in-out infinite;
+  --animate-grid-drift: grid-drift 24s linear infinite;
+  --animate-sway: sway 5s ease-in-out infinite;
+
+  @keyframes sway {
+    0%,
+    100% {
+      transform: rotate(-2deg);
+    }
+    50% {
+      transform: rotate(2deg);
+    }
+  }
+
+  @keyframes pulse-ring {
+    0% {
+      transform: scale(1);
+      opacity: 0.7;
+    }
+    80%,
+    100% {
+      transform: scale(2.6);
+      opacity: 0;
+    }
+  }
+  @keyframes blob-a {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    50% {
+      transform: translate3d(8%, 6%, 0) scale(1.12);
+    }
+  }
+  @keyframes blob-b {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0) scale(1.05);
+    }
+    50% {
+      transform: translate3d(-10%, -4%, 0) scale(0.92);
+    }
+  }
+  @keyframes grid-drift {
+    to {
+      transform: translate3d(56px, 56px, 0);
+    }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Keep section headings clear of the fixed navbar when scrolled to. */
+    scroll-padding-top: 5rem;
+    color-scheme: dark;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-ink);
+    min-height: 100dvh;
+  }
+
+  ::selection {
+    background-color: rgb(59 130 246 / 0.35);
+    color: white;
+  }
+
+  /* Visible, consistent keyboard focus across all interactive elements. */
+  :focus-visible {
+    outline: 2px solid var(--color-accent-blue);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+    }
+  }
+}
+
+@utility glass {
+  background-color: rgb(255 255 255 / 0.03);
+  border: 1px solid rgb(255 255 255 / 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+@utility text-gradient {
+  background-image: linear-gradient(90deg, #60a5fa 0%, #3b82f6 35%, #10b981 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/*
+ * Layered 3D depth for gradient text. text-shadow can't be used here (it bleeds through
+ * `text-transparent` glyphs), so stacked drop-shadows extrude the rendered letters instead:
+ * two crisp 1px blue/green layers for thickness + one soft blue ambient shadow.
+ */
+@utility title-depth {
+  filter: drop-shadow(0 1px 0 rgb(59 130 246 / 0.45)) drop-shadow(0 1px 0 rgb(16 185 129 / 0.3))
+    drop-shadow(0 14px 28px rgb(59 130 246 / 0.18));
+}
+
+@utility bg-grid {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.05) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
