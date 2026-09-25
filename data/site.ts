@@ -4,8 +4,8 @@
 export const siteConfig = {
   name: "Begüm Handan Demir",
   logo: "BHD.",
-  // TODO: Replace with your deployed domain (used for SEO / Open Graph URLs).
-  url: "https://begumhandandemir.dev",
+  // Deployed domain — used for SEO canonical and Open Graph URLs.
+  url: "https://my-portfolio-web-nine-beta.vercel.app",
   email: "begumhandandemir@gmail.com",
   // CV lives at /public/cv/Begum-Handan-Demir-CV.pdf — `cvFileName` is the name it downloads as.
   cvPath: "/cv/Begum-Handan-Demir-CV.pdf",
