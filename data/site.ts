@@ -12,8 +12,7 @@ export const siteConfig = {
   cvFileName: "Begum-Handan-Demir-CV.pdf",
   photo: "/images/begum.jpg",
   socials: {
-    // TODO: Replace with your real profile URLs.
     github: "https://github.com/begumhandan",
-    linkedin: "https://www.linkedin.com/in/",
+    linkedin: "https://www.linkedin.com/in/beg%C3%BCm-handan-demir-69788b287/",
   },
 } as const;
