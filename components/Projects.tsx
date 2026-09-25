@@ -38,7 +38,7 @@ function ProjectCard({ project }: { project: Project }) {
           <span className="size-2.5 rounded-full bg-white/10" />
           <span className="size-2.5 rounded-full bg-white/10" />
         </div>
-        <span className="truncate font-mono text-[11px] text-zinc-500">
+        <span className="min-w-0 truncate font-mono text-[11px] text-zinc-500">
           ~/projects/{project.id}
           {project.period && <span className="text-zinc-600"> · {project.period}</span>}
         </span>
@@ -195,7 +195,7 @@ export function Projects() {
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.96 }}
                 transition={{ duration: 0.35, ease: [0.21, 0.47, 0.32, 0.98] }}
-                className={cn(project.featured && "md:col-span-2")}
+                className={cn("min-w-0", project.featured && "md:col-span-2")}
               >
                 <ProjectCard project={project} />
               </motion.li>

@@ -40,8 +40,13 @@ declare module "@react-three/fiber" {
   }
 }
 
-/** Length of each of the three rope segments between anchor and card. */
-const SEGMENT = 0.62;
+/**
+ * The rope is anchored just above the top edge of the canvas (hidden), so the band looks
+ * like it hangs down from the top of the page. Long segments keep the card resting in the
+ * middle of the hero: anchor (top + 0.5) − 3 × SEGMENT ≈ 2.96 units below the top edge.
+ */
+const ANCHOR_ABOVE_TOP = 0.5;
+const SEGMENT = 1.14;
 /** Where the card's own clip ring sits, relative to the card centre. */
 const CARD_CLIP_Y = CARD_HEIGHT / 2 + 0.1;
 
@@ -74,31 +79,6 @@ function sectionEvents(store: Parameters<typeof defaultEvents>[0]): EventManager
 }
 
 const metal = { color: "#cfd4dc", metalness: 1, roughness: 0.28 } as const;
-
-function AnchorClip() {
-  return (
-    <group>
-      {/* Wall plate */}
-      <RoundedBox args={[0.62, 0.2, 0.1]} radius={0.04} position={[0, 0.16, -0.02]}>
-        <meshStandardMaterial color="#1b1f2a" metalness={0.6} roughness={0.35} />
-      </RoundedBox>
-      {[-0.2, 0.2].map((x) => (
-        <mesh key={x} position={[x, 0.16, 0.035]} rotation={[Math.PI / 2, 0, 0]}>
-          <cylinderGeometry args={[0.025, 0.025, 0.02, 16]} />
-          <meshStandardMaterial {...metal} />
-        </mesh>
-      ))}
-      {/* Clip body + ring the band loops through */}
-      <RoundedBox args={[0.24, 0.16, 0.07]} radius={0.03} position={[0, 0.05, 0.03]}>
-        <meshStandardMaterial {...metal} />
-      </RoundedBox>
-      <mesh position={[0, -0.05, 0.03]}>
-        <torusGeometry args={[0.07, 0.016, 12, 32]} />
-        <meshStandardMaterial {...metal} />
-      </mesh>
-    </group>
-  );
-}
 
 function CardClip() {
   return (
@@ -138,7 +118,7 @@ function Band({
   const { size, viewport } = useThree();
   const [anchor] = useState(() => ({
     x: (anchorX - 0.5) * viewport.width,
-    y: viewport.height / 2 - 1.05,
+    y: viewport.height / 2 + ANCHOR_ABOVE_TOP,
   }));
   const [temp] = useState(() => ({
     vec: new THREE.Vector3(),
@@ -239,12 +219,11 @@ function Band({
     setDragOffset(null);
   }
 
-  // Joints start bunched up above & to the side of the anchor, so on mount the card
+  // Joints start bunched up next to the (off-screen) anchor, so on mount the card
   // drops in, swings through and settles at rest — the entrance animation is pure physics.
   return (
     <>
       <group position={[anchor.x, anchor.y, 0]}>
-        <AnchorClip />
         <RigidBody ref={fixed} {...segmentProps} type="fixed" />
         <RigidBody ref={j1} position={[0.3, 0.2, 0]} {...segmentProps}>
           <BallCollider args={[0.05]} />

@@ -21,10 +21,8 @@ export function StaticIdCard({ alt, className }: { alt: string; className?: stri
         className="flex flex-col items-center"
       >
         <div className="flex origin-top animate-sway flex-col items-center">
-          {/* Clip */}
-          <div className="h-3 w-12 rounded-md border border-white/20 bg-linear-to-b from-zinc-200 to-zinc-500" />
-          {/* Band */}
-          <div className="h-16 w-5 bg-linear-to-b from-accent-blue to-accent-green opacity-90 [box-shadow:inset_0_0_0_1px_rgb(255_255_255/0.15)]" />
+          {/* Band — fades in from above so it reads as hanging from off-screen */}
+          <div className="h-28 w-5 bg-linear-to-b from-accent-blue to-accent-green [mask-image:linear-gradient(to_bottom,transparent,black_45%)] opacity-90 [box-shadow:inset_0_0_0_1px_rgb(255_255_255/0.15)]" />
           <div className="-mt-1 h-3 w-8 rounded-sm bg-linear-to-b from-zinc-300 to-zinc-500" />
 
           {/* Card */}
